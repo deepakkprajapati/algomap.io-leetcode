@@ -44,3 +44,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Ignore any folder starting with in_comp
+*in_comp*
