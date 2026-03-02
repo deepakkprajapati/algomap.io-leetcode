@@ -8,31 +8,45 @@ var func = function(matrix) {
     if(!matrix.length) return matrix;
     let s = matrix.length;
     //------------- better (gemini) approach
-    
-    //------------ my approach
-    let res = create2DArray(s, s);
-    for (let i = 0; i < s; i++) {
-        for (let j = 0, m = s - 1; j < s; j++, m--) {
-            // copying bottom left(going upwards) to top left(going normwal)
-            // The element from the bottom of the current column becomes 
-            // the element at the start of the current row.
-            res[i][j] = matrix[m][i];
+    // Transpose the matrix
+    for(let i = 0; i < s; i++){
+        for(let j = i+1; j <s; j++){
+            let temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
         }
     }
-    // create 2d array with 0
-    function create2DArray(rows, columns) {
-        // Creates an array of 'rows' length, each containing an array of 'columns' length
-        // return Array.from({ length: rows }, () => new Array(columns).fill(0));
-        let array = [];
-        for (let i = 0; i < rows; i++) {
-            array[i] = [];
-            for (let j = 0; j < columns; j++) array[i][j] = 0; // Initialize with zeros}
-        }return array;
+    // Swap the row elements
+    for(let i =0; i<s; i++){
+        for(let j =0; j<((s/2) | 0); j++){
+            let temp = matrix[i][j];
+            matrix[i][j] = matrix[i][s-1-j];
+            matrix[i][s-1-j] = temp;
+        }
     }
-    // Copy the rotated result back into the original matrix reference
-    for (let i = 0; i < res.length; i++) {
-        matrix[i] = res[i];
-    }
+    //------------ my approach
+    // let res = create2DArray(s, s);
+    // for (let i = 0; i < s; i++) {
+    //     for (let j = 0, m = s - 1; j < s; j++, m--) {
+    //         // copying bottom left(going upwards) to top left(going normwal)
+    //         // The element from the bottom of the current column becomes 
+    //         // the element at the start of the current row.
+    //         res[i][j] = matrix[m][i];
+    //     }
+    // }
+    // // create 2d array with 0
+    // function create2DArray(rows, columns) {
+    //     // Creates an array of 'rows' length, each containing an array of 'columns' length
+    //     // return Array.from({ length: rows }, () => new Array(columns).fill(0));
+    //     let array = [];
+    //     for (let i = 0; i < rows; i++) {
+    //         array[i] = [];
+    //         for (let j = 0; j < columns; j++) array[i][j] = 0; // Initialize with zeros}
+    //     }return array;
+    // }
+    // // Copy the rotated result back into the original matrix reference
+    // for (let i = 0; i < res.length; i++) { matrix[i] = res[i]; }
+
     return matrix
 };
 /**
