@@ -3,4 +3,4 @@ This is my personal repository for tracking solutions to Algomap’s curated lis
 ## Project Structure
 * **Folders:** Organized by topic or problem name.
 * **wip_**: Folders containing active work (ignored by Git).
-* **sol**: Finalized solutions in C++, Python, or JavaScript." > README.md
+* **sol**: Finalized solutions in C++, Python, or JavaScript.
