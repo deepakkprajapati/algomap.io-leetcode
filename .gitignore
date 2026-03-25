@@ -47,3 +47,6 @@ Thumbs.db
 
 # Ignore any folder starting with in_comp
 *in_comp*
+*wip*
+*WIP*
+*archive*
