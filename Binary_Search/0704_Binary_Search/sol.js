@@ -11,7 +11,7 @@ var func = function(arr, target) {
     let high = arr.length-1;
     let mid = 0;
     while(low <= high){
-        mid = Math.floor((low+high)/2);
+        mid = low + Math.floor( (high-low)/ 2 );
         if( target === arr[mid] ) 
             return mid;
         else if( target > arr[mid] )
