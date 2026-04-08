@@ -1,47 +1,51 @@
 #include <iostream>
 #include <vector>
-#include <numeric> // For std::accumulate
+#include <string>
 
 using namespace std;
 
-// 1. YOUR LOGIC CONTAINER
 class Solution {
 public:
-    // Strategy: [Insert Strategy Name]
-    // Time:     O(...)
-    // Space:    O(...)
+    // Strategy: Variable Sliding Window
+    // Time:     O(N)
+    // Space:    O(N)
 
-    // UPDATE: Change function signature and return type as needed
-    int solve(const vector<int>& input1) {
-        // --- Your solution starts here ---
+    int solve(string s, int k) {
+        int result = 0;
+        int l = 0;
+        vector<int> freq(26, 0);
+        int maxfq = 0;
 
-        return accumulate(input1.begin(), input1.end(), 0);
+        for(int r=0; r<s.size(); r++){
+            freq[int(s[r]) -65]++;
+            maxfq = max(maxfq, freq[int(s[r]) -65]);
+
+            while((r-l+1-maxfq) > k){
+                freq[int(s[l]) -65]--;
+                l++;
+            }
+            result = max(result, r-l+1);
+        }
+        return result;
     }
 };
 
 // 2. LOCAL TEST SUITE
 struct TestCase {
-    // UPDATE: Change input types based on the problem signature
-    vector<int> input1;
-    // int input2; // Example: Add more parameters if the function needs them
-    
-    // UPDATE: Change this to match the return type of your function
+    string s;
+    int k;
     int expected;
 };
 
 void run_tests() {
     Solution sol;
-    // UPDATE: Add your test cases here
-    // Format: { {input1, input2...}, expected_output }
     vector<TestCase> testCases{
-        {{-4, -2, 1, 4, 8}, 7}, 
-        {{10, 20}, 30},
-        {{0, 0, 0}, 0}
+        {"ABAB", 2 , 4}, 
+        {"AABABBA", 1 , 4},
     };
 
     for(size_t i = 0; i < testCases.size(); ++i) {
-        // UPDATE: Update the arguments passed to sol.solve()
-        int result = sol.solve(testCases[i].input1);
+        int result = sol.solve(testCases[i].s, testCases[i].k);
         bool isCorrect = (result == testCases[i].expected);
         cout << (isCorrect ? "✅" : "❌") << " Test #" << i;
         cout << " | Expected: " << testCases[i].expected 

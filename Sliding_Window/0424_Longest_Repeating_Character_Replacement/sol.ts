@@ -5,7 +5,20 @@
  */
 const solve = (s: string, k: number): number => {
     let result: number = 0;
-    
+    let l: number = 0;
+    let freq: number[] = new Array(26).fill(0);
+    let maxfq: number = 0;
+
+    for(let r=0; r<s.length; r++){
+        freq[s[r].charCodeAt(0) -65]++;
+        maxfq= Math.max(maxfq, freq[s[r].charCodeAt(0)-65]);
+        
+        while(((r-l+1) -maxfq) > k){
+            freq[s[l].charCodeAt(0) - 65]--;
+            l++;
+        }
+        result = Math.max(result, r-l+1);
+    }
     return result;
 };
 
