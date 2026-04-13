@@ -21,6 +21,7 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+// invertTree using iterative method
 TreeNode* invertTree(TreeNode* root){
     if(!root) return nullptr;
     queue<pair<TreeNode*, TreeNode*>> q;
@@ -39,19 +40,6 @@ TreeNode* invertTree(TreeNode* root){
         }
     }
     return res_root;
-}
-
-// print Binary-tree using BFS (using Queue)
-void printbfslevelorder(TreeNode* root){
-    if(root == nullptr) return;
-    queue<TreeNode*> q;
-    q.push(root);
-    while(!q.empty()){
-        TreeNode* current = q.front();q.pop();
-        cout<< current->val<<" ";
-        if(current->left)   q.push(current->left);
-        if(current->right)  q.push(current->right);
-    }
 }
 
 // Node* to array(BSF) type Binary-tree
@@ -94,6 +82,15 @@ TreeNode* arraytonode(vector<int> arr){
     }return root;
 }
 
+// ***SOLUTION*** invertTree using Recursion method
+TreeNode* invertTree_rec(TreeNode* root){
+    if(root == nullptr) return nullptr;
+    swap(root->left, root->right);
+    invertTree_rec(root->left);
+    invertTree_rec(root->right);
+    return root;
+}
+
 class Solution {
 public:
     // Strategy: Binary Tree
@@ -105,7 +102,7 @@ public:
         TreeNode* root = arraytonode(input1);
 
         
-        TreeNode* res_root = invertTree(root);
+        TreeNode* res_root = invertTree_rec(root);
         result = nodetoarray(res_root);
         return result;
     }
